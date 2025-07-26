@@ -1,8 +1,8 @@
 from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
 from langchain_openai import AzureChatOpenAI
 from pydantic import SecretStr
 from langchain_mcp_adapters.tools import load_mcp_tools
-from mcp.client.stdio import stdio_client
 from langgraph.prebuilt import create_react_agent
 import asyncio
 import os
@@ -26,7 +26,7 @@ model = AzureChatOpenAI(
 
 server_params = StdioServerParameters(
     command="python",
-    args=["math_server.py"],
+    args=["math_server.py"]
 )
 async def run_agent():
     # Inicia o cliente MCP com os parâmetros do servidor
