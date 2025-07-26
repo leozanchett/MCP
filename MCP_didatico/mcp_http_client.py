@@ -28,6 +28,11 @@ client = MultiServerMCPClient(
         "math_server": {
             "url": "http://localhost:8001/mcp",
             "transport": "streamable_http",  # Usa transporte HTTP streamable para MCP
+        },
+        "duckduckgo": {
+            "command": "docker",
+            "args": ["run", "-i", "--rm", "mcp/duckduckgo"],  # Docker run command: -i enables interactive mode (stdin), --rm removes container after exit
+            "transport": "stdio"
         }
     }
 )
