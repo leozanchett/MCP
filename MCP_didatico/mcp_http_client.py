@@ -25,14 +25,31 @@ azure_api_version = os.getenv("OPENAI_API_VERSION")
 # Configuração do cliente MCP
 client = MultiServerMCPClient(
     {
-        "math_server": {
-            "url": "http://localhost:8001/mcp",
-            "transport": "streamable_http",  # Usa transporte HTTP streamable para MCP
-        },
-        "duckduckgo": {
+        # "math_server": {
+        #     "url": "http://localhost:8001/mcp",
+        #     "transport": "streamable_http",  # Usa transporte HTTP streamable para MCP
+        # },
+        # "duckduckgo": {
+        #     "command": "docker",
+        #     "args": ["run", "-i", "--rm", "mcp/duckduckgo"],  # Docker run command: -i enables interactive mode (stdin), --rm removes container after exit
+        #     "transport": "stdio"
+        # },
+        "SQLite": {
             "command": "docker",
-            "args": ["run", "-i", "--rm", "mcp/duckduckgo"],  # Docker run command: -i enables interactive mode (stdin), --rm removes container after exit
-            "transport": "stdio"
+            "args": [
+                "run",
+                "-i",
+                "--rm",
+                "-v",
+                # Maps a local directory from host machine to container for SQLite database persistence
+                "C:\\Users\\lzandrade.TOPAZ\\Documents\\GitHub\\MCP\\MCP_didatico:/local-directory",
+                "mcp/sqlite",
+                "--db-path",
+                "/local-directory/db.sqlite"
+            ],
+            "transport": "stdio",
+            "name": "SQLite",
+            "description": "Banco de dados SQLite para armazenar informações"
         }
     }
 )
